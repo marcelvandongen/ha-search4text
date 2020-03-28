@@ -1,0 +1,18 @@
+type: vertical-stack
+cards:
+    type: entities
+  - entities:
+      - entity: input_text.search4text
+        icon: 'mdi:magnify'
+        name: Search yaml en py files for
+      - entity: input_boolean.search4text_filesonly
+        icon: 'mdi:file-tree'
+        name: Return only filenames
+      - action_name: Search It ...
+        icon: 'mdi:information-outline'
+        name: (Refresh frame for updated results)
+        service: script.find_text
+        type: call-service
+  - aspect_ratio: 50%
+    type: iframe
+    url: /local/found_text.html
