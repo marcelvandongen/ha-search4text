@@ -24,4 +24,4 @@ The search results will also be present in the /config folder of Home Assistant.
 
 If you only want to see the files and not the contents, set the option 'Return only filenames' to 'on'.
 
-Do you have a solution for the manual refresh problem, please let me know.
+If you have a solution for the manual refresh problem, please let me know.
