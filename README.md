@@ -1,14 +1,14 @@
 # ha-search4text
 Home Assistant package to search for text in YAML and py files
 
-This package was created specifically for the 'hide_entity' error, that does not show where it has found the entries, but I found it also useful for finding entities that I wanted te rename in the UI, but were linked to various automations, scripts and other places.
+This package was created specifically for the 'hide_entity' error, that does not show where it has found the entries, but I found it also useful for finding entities that I wanted to rename in the UI, but were linked to various automations, scripts and other places.
 
 Tested on Home Assistant Core, version 0.107.
 
-![search5text](images/search4text.PNG)
+![search4text](images/search4text.PNG)
 
 Installing:
-- Put the yaml file in you packages folder.
+- Put the yaml file in your packages folder.
 - Put the lovelace file in your lovelace configuration.
 
 Usage:
@@ -23,3 +23,5 @@ The search results are grepped, with above and below three lines for context. Th
 The search results will also be present in the /config folder of Home Assistant.
 
 If you only want to see the files and not the contents, set the option 'Return only filenames' to 'on'.
+
+Do you have a solution for the manual refresh problem, please let me know.
