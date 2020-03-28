@@ -1,0 +1,61 @@
+homeassistant:
+
+  customize:
+    shell_command.search4text_create_script:
+      hidden: true
+    shell_command.search4text:
+      hidden: true
+    shell_command.search4text_to_html:
+      hidden: true
+    shell_command.search4text_delete_script:
+      hidden: true
+    script.search4text:
+      hidden: true
+
+input_text:
+
+  search4text:
+    icon: mdi:magnify
+
+input_boolean:
+  search4text_filesonly:
+    icon: mdi:files
+  
+
+shell_command:
+
+  search4text_create_script:
+    printf '#!/bin/bash\ngrep -i --before-context=3 --after-context=3 --line-number --with-filename --text --recursive "$*" /config --include=\*.{yaml,py} > /config/found_text.txt' > /config/search4text.sh
+
+  search4text_create_script_filesonly:
+    printf '#!/bin/bash\ngrep -i --files-with-matches --text --recursive "$*" /config --include=\*.{yaml,py} > /config/found_text.txt' > /config/search4text.sh
+
+  search4text:
+    ./search4text.sh {{ text }}
+
+  search4text_to_html:
+    awk -v a="<br><br>" 'BEGIN{print "<html><body><p>"}{print $0a}END{print "</p></body></html>"}' /config/found_text.txt > /config/www/found_text.html
+    
+  search4text_delete_script:
+    rm search4text.sh
+
+
+script:
+
+  search4text:
+    alias: Find Text
+    description: Search files for text. Output in /config/found_text.txt.
+    sequence:
+    - service: shell_command.search4text_create_script
+    - service_template: >-
+        {%- if is_state('input_boolean.search4text_filesonly', 'on') -%}
+          shell_command.search4text_create_script_filesonly
+        {%- else -%}
+          shell_command.search4text_create_script
+        {%- endif -%}
+    - service: shell_command.search4text
+      data_template:
+        text: "{{ states('input_text.search4text') }}"
+    - service: shell_command.search4text_delete_script
+    - service: shell_command.search4text_to_html
+
