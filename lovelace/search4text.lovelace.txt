@@ -11,7 +11,7 @@ cards:
       - action_name: Search It ...
         icon: 'mdi:information-outline'
         name: (Refresh frame for updated results)
-        service: script.find_text
+        service: script.search4text
         type: call-service
   - aspect_ratio: 50%
     type: iframe
